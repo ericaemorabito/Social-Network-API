@@ -16,8 +16,14 @@ const userSchema = new Schema(
       unique: true,
       match: /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
     },
-    thoughts: [thoughtSchema], //! array of _id values referencing the Thought model --> need to unwind this in controllers
-    friends: [userSchema], //! self-references --> need to $unwind to get _id in controllers
+    thoughts: {
+      type: Schema.Types.ObjectId,
+      ref: 'Thought'
+    },
+    friends: {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }, 
   },
   {
     toJSON: {
