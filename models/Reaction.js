@@ -1,29 +1,29 @@
-const { Schema, model } = require('mongoose');
-//const reactionSchema = require('./Reaction');
+const { Schema } = require('mongoose');
 
-// Schema to create User model
+// Schema to create Reaction model
 const reactionSchema = new Schema(
   {
     reactionId: {
-      //!
+      type: Schema.Types.ObjectId
     },
     reactionBody: {
       type: String,
       required: true,
-      //! 280 char max
+      max_length: 280,
     },
     username: {
       type: String,
-      required: true
+      required: true,
     },
-    createdAt:
-    //!
+    createdAt: {
+      type: Date,
+      default: Date.now()
+    }
     ,
   },
   {
     toJSON: {
       getters: true,
-      virtuals: true,
     },
   }
 );

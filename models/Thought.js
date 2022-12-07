@@ -1,16 +1,16 @@
 const { Schema, model } = require('mongoose');
 const reactionSchema = require('./Reaction');
 
-// Schema to create User model
 const thoughtSchema = new Schema(
   {
     thoughtText: {
       type: String,
       required: true,
-      //! Must be between 1 and 280 characters
+      max_length: 280,
     },
     createdAt: {
-      //!
+      type: Date,
+      default: Date.now()
     },
     username: {
       type: String,
@@ -26,9 +26,9 @@ const thoughtSchema = new Schema(
   }
 );
 
-// TODO: Create a virtual called reactionCount that retrieves the length of the thought's reactions array field on query.
+// Virtual called reactionCount that retrieves the length of the thought's reactions array field on query.
 thoughtSchema.virtual('reactionCount').get(function(){
-  return reactionSchema.length;
+  return this.reactions.length;
 });
 
 const Thought = model('thought', thoughtSchema);
