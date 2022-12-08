@@ -18,11 +18,7 @@ const userController = {
         return res.status(500).json(err);
       });
   },
-
   // Get a single user
-  // ? Where do we put async and await here?
-  // ? How do we know the Id with userId
-  // ? We don't need to send back .status(200)?
   getSingleUser(req, res) {
     User.findOne({ _id: req.params.userId })
     .populate('friends')
@@ -40,7 +36,6 @@ const userController = {
       });
   },
   // Add a user
-  // ! .create .findOne are Mongoose or MongoDB?
   addUser(req, res) {
     User.create(req.body)
       .then(user => res.json(user))

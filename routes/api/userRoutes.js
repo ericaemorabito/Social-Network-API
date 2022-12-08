@@ -10,11 +10,11 @@ const {
    deleteFriend
 } = require('../../controllers/userController');
 
-// /api/user
+// /api/users
 router.route('/').get(getAllUsers).post(addUser);
 
 //! create a new route because in instructions this is not there ??? 
-// /api/user/:userId
+// /api/users/:userId
 //router.route('/:userId').get(getSingleUser).put(updateUser).delete(deleteUser);
 
 // /api/users/:userId/friends/:friendId
