@@ -15,7 +15,6 @@ router.route('/')
    .get(getAllUsers)
    .post(addUser);
 
-//! create a new route because in instructions this is not there ??? 
 // /api/users/:userId
 router.route('/:userId')
    .get(getSingleUser)
@@ -23,6 +22,8 @@ router.route('/:userId')
    .delete(deleteUser);
 
 // /api/users/:userId/friends/:friendId
-//router.route('/:userId/friends/:friendId').post(addFriend).delete(deleteFriend);
+router.route('/:userId/friends/:friendId')
+   .post(addFriend)
+   .delete(deleteFriend);
 
 module.exports = router;
