@@ -48,16 +48,25 @@ module.exports = {
       .then((thought) =>
         !thought
           ? res.status(404).json({ message: 'No thought with this ID' })
-          : Thought.deleteMany({ _id: { $in: thoughts.reactions } }) //! How do we delete the reactions that go to the thoughts too???
+          : res.json({message: 'Thought deleted!'})
       )
-      .then(() => res.json({ message: 'The thought has been deleted!' }))
       .catch((err) => res.status(500).json(err));
   },
-  //   addReaction,
+  // Add a reaction
   addReaction(req, res) {
-    //!
+    Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $addToSet: { reactions: req.body } },
+      { runValidators: true, new: true }
+    )
+      .then((thought) =>
+        !thought
+          ? res.status(404).json({ message: 'No thought with this id!' })
+          : res.json({ message: 'Reaction added!' })
+      )
+      .catch((err) => res.status(500).json(err));
   },
-  //   deleteReaction
+  // Delete a reaction
   deleteReaction(req, res) {
     //!
   }
