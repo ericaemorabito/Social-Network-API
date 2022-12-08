@@ -22,6 +22,8 @@ This is an API for a social network web application where users can share their 
 
 ## Usage
 
+*Follow [this tutorial](https://drive.google.com/file/d/1kz6MdI9Oqth1eYLo3AG1WYX5kxxw166K/view) for using API routes.*
+
 The features in this API allow a developer to store thoughts, users, friends, and reactions. The API can read, create, update and delete users and thoughts, and create and delete friends and reactions.
 
 `Seeing all users`
