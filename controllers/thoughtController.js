@@ -1,4 +1,4 @@
-const { User, Thought } = require('../models');
+const Thought = require('../models/Thought');
 const reactionSchema = require('../models/Reaction');
 
 module.exports = {
@@ -55,10 +55,10 @@ module.exports = {
   },
   //   addReaction,
   addReaction(req, res) {
-    //?
+    //!
   },
   //   deleteReaction
   deleteReaction(req, res) {
-    //
+    //!
   }
 }

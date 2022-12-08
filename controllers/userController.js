@@ -1,17 +1,12 @@
 const { ObjectId } = require('mongoose').Types;
-const { User } = require('../models');
+const User = require('../models/User');
 
 const userController = {
   // Get all users
   getAllUsers(req, res) {
     User.find({})
-    .populate('friends')
-    .populate('thoughts')
-      .then(dbUsers => {
-        // const userObject = await {
-        //   users
-        // };
-        return res.json(dbUsers);
+      .then(users => {
+        return res.json(users);
       })
       .catch((err) => {
         console.log(err);
@@ -21,14 +16,11 @@ const userController = {
   // Get a single user
   getSingleUser(req, res) {
     User.findOne({ _id: req.params.userId })
-    .populate('friends')
       .select('-__v')
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'No user with this ID' })
-          : res.json({
-            user
-          })
+          : res.json(user)
       )
       .catch((err) => {
         console.log(err);
@@ -57,6 +49,15 @@ const userController = {
           : res.json(user)
       )
       .catch((err) => res.status(500).json(err));
+  },
+  deleteUser(req, res){
+    User.findOneAndDelete({ _id: req.params.userId })
+    .then((user) =>
+      !user
+        ? res.status(404).json({ message: 'No user with this id!' })
+        : res.json({ message: 'User deleted!' })
+    )
+    .catch((err) => res.status(500).json(err));
   },
   // Add a new friend
   addFriend(req, res) {
