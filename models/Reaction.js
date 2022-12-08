@@ -1,10 +1,12 @@
 const { Schema } = require('mongoose');
+const formatDate = require('../utils/helper');
 
 // Schema to create Reaction model
 const reactionSchema = new Schema(
   {
     reactionId: {
-      type: Schema.Types.ObjectId
+      type: Schema.Types.ObjectId,
+      default: () => new Types.ObjectId()
     },
     reactionBody: {
       type: String,
@@ -17,7 +19,8 @@ const reactionSchema = new Schema(
     },
     createdAt: {
       type: Date,
-      default: Date.now()
+      default: Date.now(),
+      get: date => formatDate(date)
     }
     ,
   },

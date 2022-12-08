@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 const reactionSchema = require('./Reaction');
+const formatDate = require('../utils/helper');
 
 const thoughtSchema = new Schema(
   {
@@ -10,7 +11,8 @@ const thoughtSchema = new Schema(
     },
     createdAt: {
       type: Date,
-      default: Date.now()
+      default: Date.now(),
+      get: date => formatDate(date)
     },
     username: {
       type: String,

@@ -1,27 +1,31 @@
 const { ObjectId } = require('mongoose').Types;
-const { User, Thought } = require('../models');
+const { User } = require('../models');
 
-module.exports = {
+const userController = {
   // Get all users
   getAllUsers(req, res) {
-    User.find()
-      .then(async (users) => {
-        const userObject = await {
-          users
-        };
-        return res.json(userData);
+    User.find({})
+    .populate('friends')
+    .populate('thoughts')
+      .then(dbUsers => {
+        // const userObject = await {
+        //   users
+        // };
+        return res.json(dbUsers);
       })
       .catch((err) => {
         console.log(err);
         return res.status(500).json(err);
       });
   },
+
   // Get a single user
   // ? Where do we put async and await here?
   // ? How do we know the Id with userId
   // ? We don't need to send back .status(200)?
   getSingleUser(req, res) {
     User.findOne({ _id: req.params.userId })
+    .populate('friends')
       .select('-__v')
       .then((user) =>
         !user
@@ -39,7 +43,7 @@ module.exports = {
   // ! .create .findOne are Mongoose or MongoDB?
   addUser(req, res) {
     User.create(req.body)
-      .then((user) => res.json(user))
+      .then(user => res.json(user))
       .catch((err) => {
         console.log(err);
         return res.status(500).json(err)
@@ -68,3 +72,5 @@ module.exports = {
     //!
   }
 }
+
+module.exports = userController;
